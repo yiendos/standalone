@@ -1,0 +1,28 @@
+version: '2'
+services:
+    apache:
+        build:
+            context: .
+            dockerfile: _mysites/docker/apache2/Dockerfile
+        container_name: standalone_apache
+        ports:
+            - "8085:8080"
+        expose:
+            - "8080"
+        environment:
+            - FPM_SOCK=standalone_php_fpm
+        volumes:
+            - ./_mysites/docker/apache2/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+            - ./_mysites/docker/apache2/sites-enabled:/usr/local/apache2/sites-enabled
+            - ./_mysites/docker/logs/apache2/:/var/log/apache2
+            - ./Sites:/Sites
+        command: ["/usr/local/apache2/bin/apachectl", "-D",  "FOREGROUND"]
+    php_fpm:
+        build:
+            context: .
+            dockerfile: _mysites/docker/php/Dockerfile
+        container_name: standalone_php_fpm
+        volumes:
+            -  ./Sites:/Sites
+            -  ./_mysites/docker/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+            -  ./_mysites/docker/php/xdebug/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
