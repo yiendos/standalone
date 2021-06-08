@@ -1,4 +1,6 @@
 <?php
+ini_set('error_reporting', E_ALL); //For development
+//ini_set('error_reporting', E_ERROR | E_PARSE);  //For production
 
 return [
 
@@ -26,5 +28,6 @@ return [
     'lifetime'    => '15',
 
     /* Debug */
-    'debug'     => 0
+    'debug'     => 1,
+    'KOOWA_DEBUG' => 1
 ];

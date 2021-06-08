@@ -4,7 +4,7 @@ return array(
 
     //Use /site directory instead of default /joomlatools-pages
     'sites' => [
-        '[*]' => KOOWA_ROOT.'/site',
+        '[*]' => KOOWA_ROOT.'/sites/default',
     ],
 
     //Alias debugger assets to use joomlatools CDN
